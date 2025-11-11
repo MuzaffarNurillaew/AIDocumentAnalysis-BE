@@ -19,7 +19,6 @@ builder.Host.UseConsoleLifetime(options => options.SuppressStatusMessages = true
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
-builder.Services.AddSwaggerDocument();
 builder.Services.AddFastEndpoints().AddOpenApiDocument().AddEndpointsApiExplorer();
 
 var app = builder.Build();
