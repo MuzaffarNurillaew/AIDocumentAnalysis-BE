@@ -20,12 +20,9 @@ builder.Host.UseConsoleLifetime(options => options.SuppressStatusMessages = true
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
-builder.Services.AddFastEndpoints(options =>
-{
-    options.SourceGeneratorDiscoveredTypes = new Type[] { };
-});
+builder.Services.AddFastEndpoints();
 
-builder.Services.AddSwaggerDoc(addJWTBearerAuth: false);
+builder.Services.AddSwaggerDocument();
 
 var app = builder.Build();
 
@@ -47,7 +44,7 @@ app.UseFastEndpoints(options =>
 if (app.Environment.IsDevelopment())
 {
     app.UseOpenApi();
-    app.UseSwaggerUi3(x => x.ConfigureDefaults());
+    app.UseSwaggerUi(x => x.ConfigureDefaults());
 }
 
 await app.RunAsync();
