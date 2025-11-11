@@ -16,13 +16,11 @@ builder.WebHost.ConfigureKestrel(options =>
 
 builder.Host.UseConsoleLifetime(options => options.SuppressStatusMessages = true);
 
-
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
-builder.Services.AddFastEndpoints();
-
 builder.Services.AddSwaggerDocument();
+builder.Services.AddFastEndpoints().AddOpenApiDocument().AddEndpointsApiExplorer();
 
 var app = builder.Build();
 
@@ -41,11 +39,8 @@ app.UseFastEndpoints(options =>
     options.Serializer.Options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
 });
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseOpenApi();
-    app.UseSwaggerUi(x => x.ConfigureDefaults());
-}
+app.UseOpenApi();
+app.UseSwaggerUi(x => x.ConfigureDefaults());
 
 await app.RunAsync();
 
